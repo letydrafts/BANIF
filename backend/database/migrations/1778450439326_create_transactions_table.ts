@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').notNullable()
       table.integer('account_id').unsigned().references('id').inTable('accounts')
       table.decimal('amount', 10, 2).notNullable()
-      table.enu('type', ['deposit', 'pix']).notNullable()
+      table.enu('type', ['deposit', 'pix', 'transfer', 'withdrawal']).notNullable()
       table.integer('destination_account_id').unsigned().references('id').inTable('accounts').nullable()
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').notNullable()
