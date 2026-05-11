@@ -7,6 +7,44 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AccountSchema extends BaseModel {
+  static $columns = ['accountNumber', 'agencyNumber', 'balance', 'createdAt', 'id', 'updatedAt', 'userId'] as const
+  $columns = AccountSchema.$columns
+  @column()
+  declare accountNumber: string
+  @column()
+  declare agencyNumber: string
+  @column()
+  declare balance: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare userId: number | null
+}
+
+export class AddressSchema extends BaseModel {
+  static $columns = ['city', 'createdAt', 'id', 'state', 'streetNumber', 'updatedAt', 'userId'] as const
+  $columns = AddressSchema.$columns
+  @column()
+  declare city: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare state: string
+  @column()
+  declare streetNumber: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare userId: number | null
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -32,9 +70,60 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class InvestmentSchema extends BaseModel {
+  static $columns = ['accountId', 'amount', 'createdAt', 'id', 'type', 'updatedAt'] as const
+  $columns = InvestmentSchema.$columns
+  @column()
+  declare accountId: number
+  @column()
+  declare amount: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare type: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
+export class RoleSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'name', 'updatedAt'] as const
+  $columns = RoleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class TransactionSchema extends BaseModel {
+  static $columns = ['accountId', 'amount', 'createdAt', 'destinationAccountId', 'id', 'type', 'updatedAt'] as const
+  $columns = TransactionSchema.$columns
+  @column()
+  declare accountId: number | null
+  @column()
+  declare amount: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare destinationAccountId: number | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare type: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['cpf', 'createdAt', 'email', 'fullName', 'id', 'password', 'roleId', 'updatedAt'] as const
   $columns = UserSchema.$columns
+  @column()
+  declare cpf: string
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -45,6 +134,8 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare roleId: number | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
