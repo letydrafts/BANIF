@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.enu('type', ['stocks', 'bonds', 'savings']).notNullable()
       table.decimal('amount', 10, 2).notNullable()
       table.timestamp('created_at').notNullable()
-      table.timestamp('updated_at').notNullable()
+      table.timestamp('redeemed_at').nullable()
     })
   }
 

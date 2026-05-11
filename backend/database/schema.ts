@@ -71,7 +71,7 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class InvestmentSchema extends BaseModel {
-  static $columns = ['accountId', 'amount', 'createdAt', 'id', 'type', 'updatedAt'] as const
+  static $columns = ['accountId', 'amount', 'createdAt', 'id', 'redeemedAt', 'type'] as const
   $columns = InvestmentSchema.$columns
   @column()
   declare accountId: number
@@ -81,10 +81,10 @@ export class InvestmentSchema extends BaseModel {
   declare createdAt: DateTime
   @column({ isPrimary: true })
   declare id: number
+  @column.dateTime()
+  declare redeemedAt: DateTime | null
   @column()
   declare type: string
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
 }
 
 export class RoleSchema extends BaseModel {
